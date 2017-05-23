@@ -64,8 +64,8 @@ namespace Taxikosten
             bool maandagHoogTarief = (((comboBoxDagVanDeWeek.Text == "Maandag") && (startUur >= 7) && (eindUur < 8)) || ((comboBoxDagVanDeWeek.Text == "Maandag") && (startUur >= 18) && (eindUur < 24)));
             bool dinsdagHoogTarief = (((comboBoxDagVanDeWeek.Text == "Dinsdag") && (startUur >= 0) && (eindUur < 8)) || ((comboBoxDagVanDeWeek.Text == "Dinsdag") && (startUur >= 18) && (eindUur < 24)));
             bool woensdagHoogTarief = (((comboBoxDagVanDeWeek.Text == "Woensdag") && (startUur >= 0) && (eindUur < 8)) || ((comboBoxDagVanDeWeek.Text == "Woensdag") && (startUur >= 18) && (eindUur < 24)));
-            bool donderdagHoogTarief = (((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur >= 0) && (eindUur < 8)) || ((startUur >= 18) && (eindUur < 24)));
-            bool vrijdagHoogTarief = (((comboBoxDagVanDeWeek.Text == "Vrijdag") && (startUur >= 0) && (eindUur < 8)) || ((comboBoxDagVanDeWeek.Text == "Vrijdag") && (startUur >= 18) && (eindUur < 22)) || ((comboBoxDagVanDeWeek.Text == "Vrijdag") && (startUur >= 18) && (startUur <22 ) && (eindUur < 24)));
+            bool donderdagHoogTarief = (((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur >= 0) && (eindUur < 8)) || ((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur >= 18) && (eindUur < 24)));
+            bool vrijdagHoogTarief = (((comboBoxDagVanDeWeek.Text == "Vrijdag") && (startUur >= 0) && (eindUur < 8)) || ((comboBoxDagVanDeWeek.Text == "Vrijdag") && (startUur >= 18) && (eindUur < 22)) || ((comboBoxDagVanDeWeek.Text == "Vrijdag") && ((startUur >= 18) && (startUur <22 )) && (eindUur < 24)));
 
             bool hoogtarief = ((maandagHoogTarief) || (dinsdagHoogTarief) || (woensdagHoogTarief) || (donderdagHoogTarief) || (vrijdagHoogTarief));
 
@@ -76,20 +76,41 @@ namespace Taxikosten
             /** bepaling hoogtarief weekend: zaterdag en zondag hoogtarief zoals hierboven + 15%*/
             bool zaterdagHoogTarief = (((comboBoxDagVanDeWeek.Text == "Zaterdag") && (startUur >= 0) && (eindUur < 8)) || ((comboBoxDagVanDeWeek.Text == "Zaterdag") && (startUur >= 18) && (eindUur < 24)));
             bool zondagHoogTarief = (((comboBoxDagVanDeWeek.Text == "Zondag") && (startUur >= 0) && (eindUur < 8)) || ((comboBoxDagVanDeWeek.Text == "Zondag") && (startUur >= 18) && (eindUur < 24)));
-            bool maandagWeekendHoogTarief = (((comboBoxDagVanDeWeek.Text == "Maandag") && (startUur < 7) && (eindUur < 7)));
-            bool vrijdagWeekendHoogTarief = (((comboBoxDagVanDeWeek.Text == "Vrijdag") && (startUur >= 22) && (eindUur < 24)));
+            
+            bool hoogtariefWeekend = ((zaterdagHoogTarief) || (zondagHoogTarief));
 
-            bool hoogtariefWeekend = ((zaterdagHoogTarief) || (zondagHoogTarief) || (maandagWeekendHoogTarief) || (vrijdagWeekendHoogTarief));
-
-            /** bepaling combinatietarief: dinsdag woensdag donderdag voorbeeld 1: 1) rit van 01.00 - 10.00 */
+            /** bepaling combinatietarief: dinsdag woensdag donderdag conform voorbeeld 1: 1) rit van 01.00 - 10.00 */
             bool combiTariefDiWoDoStartVoorAchtEindTussenAchtEnZes = (((comboBoxDagVanDeWeek.Text == "Dinsdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)) || ((comboBoxDagVanDeWeek.Text == "Woensdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)) || ((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)));
 
-            /** bepaling combinatietarief: dinsdag woensdag donderdag voorbeeld 2: 2) rit van 01.00 - 20.00 3) rit van 09.00 - 20.00 */
+            /** bepaling combinatietarief: dinsdag woensdag donderdag conform voorbeeld 2: 2) rit van 01.00 - 20.00 3) rit van 09.00 - 20.00 */
             bool combiTariefDiWoDoStartVoorAchtEindNaAchtien = (((comboBoxDagVanDeWeek.Text == "Dinsdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Woensdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)));
 
-            /** bepaling combinatietarief: dinsdag woensdag donderdag voorbeeld 3: 3) rit van 09.00 - 20.00 */
-            bool combiTariefDiWoDoStartTussenAchtEnZesEindNaAchtien= (((comboBoxDagVanDeWeek.Text == "Dinsdag") && (startUur > 8) && (startUur < 18) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Woensdag") && (startUur > 8) && (startUur < 18) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur > 8) && (startUur < 18) && (eindUur >= 18)));
+            /** bepaling combinatietarief: dinsdag woensdag donderdag conform voorbeeld 3: 3) rit van 09.00 - 20.00 */
+            bool combiTariefDiWoDoStartTussenAchtEnZesEindNaAchtien = (((comboBoxDagVanDeWeek.Text == "Dinsdag") && (startUur >= 8) && (startUur < 18) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Woensdag") && (startUur >= 8) && (startUur < 18) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur >= 8) && (startUur < 18) && (eindUur >= 18)));
 
+            /** bepaling combinatietarief: zaterdag en zondag conform voorbeeld 1: 1) rit van 01.00 - 10.00 */
+            bool combiTariefZaZoStartVoorAchtEindTussenAchtEnZes = (((comboBoxDagVanDeWeek.Text == "Zaterdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)) || ((comboBoxDagVanDeWeek.Text == "Zondag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)));
+
+            /** bepaling combinatietarief: zaterdag en zondag conform voorbeeld 2: 2) rit van 01.00 - 20.00 3) rit van 09.00 - 20.00 */
+            bool combiTariefZaZoStartVoorAchtEindNaAchtien = (((comboBoxDagVanDeWeek.Text == "Zaterdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Zondag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)));
+
+            /** bepaling combinatietarief: zaterdag en zondag conform voorbeeld 3: 3) rit van 09.00 - 20.00 */
+            bool combiTariefZaZoStartTussenAchtEnZesEindNaAchtien = (((comboBoxDagVanDeWeek.Text == "Zaterdag") && (startUur >= 8) && (startUur < 18) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Zondag") && (startUur >= 8) && (startUur < 18) && (eindUur >= 18)));
+            
+            /** bepaling combinatietarief: maandag start voor 07.00 's ochtends (opslag * 1.15) en eind tussen 08.00 en 18.00 (bijv. van 05.00 - 10.15) */
+            bool combiTariefMaandagStartVoorZevenEindTussenAchtEnAchtien = (((comboBoxDagVanDeWeek.Text == "Maandag") && (startUur < 7) && (eindUur >= 8) && (eindUur < 18)));
+
+            /** bepaling combinatietarief: maandag start voor 07.00 's ochtends (opslag * 1.15) en eind na 18.00 (bijv. van 05.00 - 20.15) */
+            bool combiTariefMaandagStartVoorZevenEindNaAchtien = (((comboBoxDagVanDeWeek.Text == "Maandag") && (startUur < 7) && (eindUur > 8) && (eindUur > 18)));
+                        
+            /** bepaling combinatietarief: maandag start voor 07.00 's ochtends (opslag * 1.15) en eind voor 08.00 (bijv. van 05.00 - 07.15)*/
+            bool combiTariefMaandagStartVoorZevenEindVoorAcht= (((comboBoxDagVanDeWeek.Text == "Maandag") && (startUur < 7) && (eindUur < 8)));
+            
+
+
+            /** bepaling combinatietarief: Vrijdag start 22.00 or later = opslag * 1.15 (bijv. van 22.15 - 23.30) */
+            bool combiTariefVrijdagStartNaTienAvond = ((comboBoxDagVanDeWeek.Text == "Vrijdag") && (startUur >= 22));
+                        
             if (textStartMinuutInvoer.Text == "" || textEindetMinuutInvoer.Text == "" || textAantalKilometersInvoer.Text == "")
             {
                 textBoxFoutUitvoer.Text = "foutieve invoer: geef zowel het aantal startminuten als het aantal eindminuten en de gereden kilometers op";
@@ -100,111 +121,126 @@ namespace Taxikosten
                 bool succesVolleInput = (Decimal.TryParse(textStartMinuutInvoer.Text, out startMinutenInput)) && (Decimal.TryParse(textEindetMinuutInvoer.Text, out eindMinutenInput)) && (int.TryParse(textAantalKilometersInvoer.Text, out kilometersInput));
 
                 decimal kostenTijdUurStartVoorAcht = 8m - startUur;
+                decimal kostenTijdUurEindVoorAcht = 8m - eindUur;
                 decimal kostenTijdUurStartTussenAchtEnAchtien = 18 - startUur;
                 decimal kostenTijdUurEindTussenAchtEnAchtien = eindUur - 8m;
                 decimal kostenTijdUurEindNaAchtien = eindUur - 18m;
+
                 decimal startMinutenInputVoorAcht = startMinutenInput * uurKostenHoog;
                 decimal startMinutenInputTussenAchtEnAchtien = startMinutenInput * uurKostenDal;
                 decimal eindMinutenInputTussenZesEnAcht = eindMinutenInput * uurKostenDal;
 
-                if (succesVolleInput == true)
+                if (succesVolleInput)
                 {
                     if (startMinutenInput >= 60 || eindMinutenInput >= 60)
                     {
                         textBoxFoutUitvoer.Text = "foutieve invoer: geef het juiste aantal startminuten en eindminuten op";
                         textTotaleKostenRitUitvoer.Text = "";
                     }
-                    else
+                    else if (int.Parse(comboStartUur.Text) > int.Parse(comboEindeUur.Text) || ((int.Parse(comboStartUur.Text) == int.Parse(comboEindeUur.Text) && startMinutenInput > eindMinutenInput)))
                     {
-                        if (int.Parse(comboStartUur.Text) > int.Parse(comboEindeUur.Text) || ((int.Parse(comboStartUur.Text) == int.Parse(comboEindeUur.Text) && startMinutenInput > eindMinutenInput)))
-                        {
-                            textBoxFoutUitvoer.Text = "foutieve invoer: startijd rit ligt na eindtijd rit";
-                            textTotaleKostenRitUitvoer.Text = "";
-                        }
-                        else
-                        {
-                            if (daltarief)
-                            {
-                                kostenTijdMinuten = (eindMinutenInput - startMinutenInput) * uurKostenDal;
-                                kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
-                                kostenTijdUur = (Decimal.Parse(comboEindeUur.Text) - Decimal.Parse(comboStartUur.Text)) * 60 * uurKostenDal;
-                                totaleKosten = kostenTijdUur + kostenTijdMinuten + kostenKilometers;
-                                textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
-                                textBoxFoutUitvoer.Text = "";
-                            }
-                            else
-                            {
-                                if (hoogtarief)
-                                {
-                                    kostenTijdMinuten = (eindMinutenInput - startMinutenInput) * uurKostenHoog;
-                                    kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
-                                    kostenTijdUur = (Decimal.Parse(comboEindeUur.Text) - Decimal.Parse(comboStartUur.Text)) * 60 * uurKostenHoog;
-                                    totaleKosten = kostenTijdUur + kostenTijdMinuten + kostenKilometers;
-                                    textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
-                                    textBoxFoutUitvoer.Text = "";
-                                }
-                                else
-                                {
-                                    if (daltariefZaterdagZondag)
-                                    {
-                                        kostenTijdMinuten = (eindMinutenInput - startMinutenInput) * (uurKostenDal * weekendOpslag);
-                                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
-                                        kostenTijdUur = (Decimal.Parse(comboEindeUur.Text) - Decimal.Parse(comboStartUur.Text)) * 60 * (uurKostenDal * weekendOpslag);
-                                        totaleKosten = kostenTijdUur + kostenTijdMinuten + kostenKilometers;
-                                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
-                                        textBoxFoutUitvoer.Text = "";
-                                    }
-                                    else
-                                    {
-                                        if (hoogtariefWeekend)
-                                        {
-                                            kostenTijdMinuten = (eindMinutenInput - startMinutenInput) * (uurKostenHoog * weekendOpslag);
-                                            kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
-                                            kostenTijdUur = (Decimal.Parse(comboEindeUur.Text) - Decimal.Parse(comboStartUur.Text)) * 60 * (uurKostenHoog* weekendOpslag);
-                                            totaleKosten = kostenTijdUur + kostenTijdMinuten + kostenKilometers;
-                                            textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
-                                            textBoxFoutUitvoer.Text = "";
-                                        }
-                                        else
-                                        {
-                                            if (combiTariefDiWoDoStartVoorAchtEindTussenAchtEnZes)
-                                            {
-                                                /**kostenTijdMinuten = eindMinutenInputTussenZesEnAcht - startMinutenInputVoorAcht; */
-                                                kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
-                                                kostenTijdUur = (((kostenTijdUurStartVoorAcht * uurKostenHoog) + (kostenTijdUurEindTussenAchtEnAchtien * uurKostenDal)) * 60);
-                                                totaleKosten = kostenTijdUur + eindMinutenInputTussenZesEnAcht - startMinutenInputVoorAcht + kostenKilometers;
-                                                textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
-                                                textBoxFoutUitvoer.Text = "";
-                                            }
-                                            else
-                                            {
-                                                if (combiTariefDiWoDoStartVoorAchtEindNaAchtien)
-                                                {
-                                                    /**kostenTijdMinuten = (eindMinutenInput - startMinutenInput) * uurKostenHoog; */
-                                                    kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
-                                                    kostenTijdUur = (((kostenTijdUurStartVoorAcht * uurKostenHoog) + (kostenTijdUurEindNaAchtien * uurKostenHoog)) * 60) + 150m;
-                                                    totaleKosten = kostenTijdUur + (eindMinutenInput * uurKostenHoog) - startMinutenInputVoorAcht + kostenKilometers;
-                                                    textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
-                                                    textBoxFoutUitvoer.Text = "";
-                                                }
-                                                else
-                                                {
-                                                    if (combiTariefDiWoDoStartTussenAchtEnZesEindNaAchtien)
-                                                    {
-                                                        /**kostenTijdMinuten = (eindMinutenInput - startMinutenInput) * uurKostenHoog; */
-                                                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
-                                                        kostenTijdUur = (((kostenTijdUurStartTussenAchtEnAchtien * uurKostenDal) + (kostenTijdUurEindNaAchtien * uurKostenHoog)) * 60);
-                                                        totaleKosten = kostenTijdUur + (eindMinutenInput * uurKostenHoog) - startMinutenInputTussenAchtEnAchtien + kostenKilometers;
-                                                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
-                                                        textBoxFoutUitvoer.Text = "";
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }                                    
-                                }
-                            }
-                        }
+                        textBoxFoutUitvoer.Text = "foutieve invoer: startijd rit ligt na eindtijd rit";
+                        textTotaleKostenRitUitvoer.Text = "";
+                    }
+                    else if (daltarief)
+                    {
+                        kostenTijdMinuten = (eindMinutenInput - startMinutenInput) * uurKostenDal;
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
+                        kostenTijdUur = (eindUur - startUur) * 60 * uurKostenDal;
+                        totaleKosten = kostenTijdUur + kostenTijdMinuten + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
+                    }
+                    else if (hoogtarief)
+                    {
+                        kostenTijdMinuten = (eindMinutenInput - startMinutenInput) * uurKostenHoog;
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
+                        kostenTijdUur = (eindUur - startUur) * 60 * uurKostenHoog;
+                        totaleKosten = kostenTijdUur + kostenTijdMinuten + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
+                    }
+                    else if (daltariefZaterdagZondag)
+                    {
+                        kostenTijdMinuten = (eindMinutenInput - startMinutenInput) * (uurKostenDal * weekendOpslag);
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer * weekendOpslag;
+                        kostenTijdUur = (eindUur - startUur) * 60 * (uurKostenDal * weekendOpslag);
+                        totaleKosten = kostenTijdUur + kostenTijdMinuten + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
+                    }
+                    else if (hoogtariefWeekend)
+                    {
+                        kostenTijdMinuten = (eindMinutenInput - startMinutenInput) * (uurKostenHoog * weekendOpslag);
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer * weekendOpslag;
+                        kostenTijdUur = (eindUur - startUur) * 60 * (uurKostenHoog * weekendOpslag);
+                        totaleKosten = kostenTijdUur + kostenTijdMinuten + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
+                    }
+                    else if (combiTariefDiWoDoStartVoorAchtEindTussenAchtEnZes)
+                    {
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
+                        kostenTijdUur = (((kostenTijdUurStartVoorAcht * uurKostenHoog) + (kostenTijdUurEindTussenAchtEnAchtien * uurKostenDal)) * 60);
+                        totaleKosten = kostenTijdUur + eindMinutenInputTussenZesEnAcht - startMinutenInputVoorAcht + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
+                    }
+                    else if (combiTariefDiWoDoStartVoorAchtEindNaAchtien)
+                    {
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
+                        kostenTijdUur = (((kostenTijdUurStartVoorAcht * uurKostenHoog) + (kostenTijdUurEindNaAchtien * uurKostenHoog)) * 60) + 150m;
+                        totaleKosten = kostenTijdUur + (eindMinutenInput * uurKostenHoog) - startMinutenInputVoorAcht + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
+                    }
+                    else if (combiTariefDiWoDoStartTussenAchtEnZesEindNaAchtien)
+                    {
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
+                        kostenTijdUur = (((kostenTijdUurStartTussenAchtEnAchtien * uurKostenDal) + (kostenTijdUurEindNaAchtien * uurKostenHoog)) * 60);
+                        totaleKosten = kostenTijdUur + (eindMinutenInput * uurKostenHoog) - startMinutenInputTussenAchtEnAchtien + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
+                    }
+                    else if (combiTariefZaZoStartVoorAchtEindTussenAchtEnZes || combiTariefMaandagStartVoorZevenEindTussenAchtEnAchtien)
+                    {
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer * weekendOpslag;
+                        kostenTijdUur = (((kostenTijdUurStartVoorAcht * uurKostenHoog) + (kostenTijdUurEindTussenAchtEnAchtien * uurKostenDal)) * 60 * weekendOpslag);
+                        totaleKosten = kostenTijdUur + ((eindMinutenInputTussenZesEnAcht - startMinutenInputVoorAcht) * weekendOpslag) + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
+                    }
+                    else if (combiTariefZaZoStartVoorAchtEindNaAchtien || combiTariefMaandagStartVoorZevenEindNaAchtien)
+                    {
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer * weekendOpslag;
+                        kostenTijdUur = (((((kostenTijdUurStartVoorAcht * uurKostenHoog) + (kostenTijdUurEindNaAchtien * uurKostenHoog)) * 60) + 150m) * weekendOpslag);
+                        totaleKosten = kostenTijdUur + (((eindMinutenInput * uurKostenHoog) - (startMinutenInputVoorAcht)) * weekendOpslag) + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
+                    }
+                    else if (combiTariefZaZoStartTussenAchtEnZesEindNaAchtien)
+                    {
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer * weekendOpslag;
+                        kostenTijdUur = (((kostenTijdUurStartTussenAchtEnAchtien * uurKostenDal) + (kostenTijdUurEindNaAchtien * uurKostenHoog)) * 60 * weekendOpslag);
+                        totaleKosten = kostenTijdUur + (((eindMinutenInput * uurKostenHoog) - (startMinutenInputTussenAchtEnAchtien)) * weekendOpslag) + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
+                    }
+                    else if (combiTariefMaandagStartVoorZevenEindVoorAcht)
+                    {
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer * weekendOpslag;
+                        kostenTijdUur = (((kostenTijdUurStartVoorAcht * uurKostenHoog) - (kostenTijdUurEindVoorAcht * uurKostenHoog)) * 60 * weekendOpslag);
+                        totaleKosten = kostenTijdUur + ((eindMinutenInput - startMinutenInput) * uurKostenHoog * weekendOpslag) + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
+                    }
+                    else if (combiTariefVrijdagStartNaTienAvond)
+                    {
+                        kostenKilometers = kilometersInput * prijsPerGeredenKilometer * weekendOpslag;
+                        kostenTijdUur = (eindUur - startUur) * 60 * (uurKostenHoog * weekendOpslag);
+                        totaleKosten = kostenTijdUur + ((eindMinutenInput - startMinutenInput) * uurKostenHoog * weekendOpslag) + kostenKilometers;
+                        textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
+                        textBoxFoutUitvoer.Text = "";
                     }
                 }
                 else
