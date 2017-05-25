@@ -83,17 +83,17 @@ namespace Taxikosten
             
             bool hoogtariefWeekend = ((zaterdagHoogTarief) || (zondagHoogTarief));
 
-            /** bepaling combinatietarief: dinsdag woensdag donderdag conform voorbeeld 1: 1) rit van 01.00 - 10.00 */
-            bool combiTariefDiWoDoStartVoorAchtEindTussenAchtEnZes = (((comboBoxDagVanDeWeek.Text == "Dinsdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)) || ((comboBoxDagVanDeWeek.Text == "Woensdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)) || ((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)));
+            /** bepaling combinatietarief: dinsdag woensdag donderdag vrijdag conform voorbeeld 1: 1) rit van 01.00 - 10.00 */
+            bool combiTariefDiWoDoVrijStartVoorAchtEindTussenAchtEnAchtien = (((comboBoxDagVanDeWeek.Text == "Dinsdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)) || ((comboBoxDagVanDeWeek.Text == "Woensdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)) || ((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)) || ((comboBoxDagVanDeWeek.Text == "Vrijdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)));
 
-            /** bepaling combinatietarief: dinsdag woensdag donderdag conform voorbeeld 2: 2) rit van 01.00 - 20.00 3) rit van 09.00 - 20.00 */
-            bool combiTariefDiWoDoStartVoorAchtEindNaAchtien = (((comboBoxDagVanDeWeek.Text == "Dinsdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Woensdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)));
+            /** bepaling combinatietarief: dinsdag woensdag donderdag vrijdag conform voorbeeld 2: 2) rit van 01.00 - 20.00  */
+            bool combiTariefDiWoDoVrijStartVoorAchtEindNaAchtien = (((comboBoxDagVanDeWeek.Text == "Dinsdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Woensdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Vrijdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)));
 
             /** bepaling combinatietarief: dinsdag woensdag donderdag conform voorbeeld 3: 3) rit van 09.00 - 20.00 */
             bool combiTariefDiWoDoStartTussenAchtEnZesEindNaAchtien = (((comboBoxDagVanDeWeek.Text == "Dinsdag") && (startUur >= 8) && (startUur < 18) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Woensdag") && (startUur >= 8) && (startUur < 18) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Donderdag") && (startUur >= 8) && (startUur < 18) && (eindUur >= 18)));
 
             /** bepaling combinatietarief: zaterdag en zondag conform voorbeeld 1: 1) rit van 01.00 - 10.00 */
-            bool combiTariefZaZoStartVoorAchtEindTussenAchtEnZes = (((comboBoxDagVanDeWeek.Text == "Zaterdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)) || ((comboBoxDagVanDeWeek.Text == "Zondag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)));
+            bool combiTariefZaZoStartVoorAchtEindTussenAchtEnAchtien = (((comboBoxDagVanDeWeek.Text == "Zaterdag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)) || ((comboBoxDagVanDeWeek.Text == "Zondag") && (startUur < 8) && (eindUur >= 8) && (eindUur < 18)));
 
             /** bepaling combinatietarief: zaterdag en zondag conform voorbeeld 2: 2) rit van 01.00 - 20.00 3) rit van 09.00 - 20.00 */
             bool combiTariefZaZoStartVoorAchtEindNaAchtien = (((comboBoxDagVanDeWeek.Text == "Zaterdag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)) || ((comboBoxDagVanDeWeek.Text == "Zondag") && (startUur < 8) && (eindUur > 8) && (eindUur >= 18)));
@@ -180,7 +180,7 @@ namespace Taxikosten
                         textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
                         textBoxFoutUitvoer.Text = "";
                     }
-                    else if (combiTariefDiWoDoStartVoorAchtEindTussenAchtEnZes)
+                    else if (combiTariefDiWoDoVrijStartVoorAchtEindTussenAchtEnAchtien)
                     {
                         kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
                         kostenTijdUur = (((kostenTijdUurStartVoorAcht * uurKostenHoog) + (kostenTijdUurEindTussenAchtEnAchtien * uurKostenDal)) * 60);
@@ -188,7 +188,7 @@ namespace Taxikosten
                         textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
                         textBoxFoutUitvoer.Text = "";
                     }
-                    else if (combiTariefDiWoDoStartVoorAchtEindNaAchtien)
+                    else if (combiTariefDiWoDoVrijStartVoorAchtEindNaAchtien)
                     {
                         kostenKilometers = kilometersInput * prijsPerGeredenKilometer;
                         kostenTijdUur = (((kostenTijdUurStartVoorAcht * uurKostenHoog) + (kostenTijdUurEindNaAchtien * uurKostenHoog)) * 60) + 150m;
@@ -204,7 +204,7 @@ namespace Taxikosten
                         textTotaleKostenRitUitvoer.Text = totaleKosten.ToString("C");
                         textBoxFoutUitvoer.Text = "";
                     }
-                    else if (combiTariefZaZoStartVoorAchtEindTussenAchtEnZes || combiTariefMaandagStartVoorZevenEindTussenAchtEnAchtien)
+                    else if (combiTariefZaZoStartVoorAchtEindTussenAchtEnAchtien || combiTariefMaandagStartVoorZevenEindTussenAchtEnAchtien)
                     {
                         kostenKilometers = kilometersInput * prijsPerGeredenKilometer * weekendOpslag;
                         kostenTijdUur = (((kostenTijdUurStartVoorAcht * uurKostenHoog) + (kostenTijdUurEindTussenAchtEnAchtien * uurKostenDal)) * 60 * weekendOpslag);
