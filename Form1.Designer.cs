@@ -176,6 +176,7 @@
             // 
             this.textStartMinuutInvoer.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textStartMinuutInvoer.Location = new System.Drawing.Point(396, 144);
+            this.textStartMinuutInvoer.MaxLength = 2;
             this.textStartMinuutInvoer.Name = "textStartMinuutInvoer";
             this.textStartMinuutInvoer.Size = new System.Drawing.Size(102, 32);
             this.textStartMinuutInvoer.TabIndex = 7;
@@ -185,6 +186,7 @@
             // 
             this.textEindetMinuutInvoer.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textEindetMinuutInvoer.Location = new System.Drawing.Point(395, 212);
+            this.textEindetMinuutInvoer.MaxLength = 2;
             this.textEindetMinuutInvoer.Name = "textEindetMinuutInvoer";
             this.textEindetMinuutInvoer.Size = new System.Drawing.Size(103, 32);
             this.textEindetMinuutInvoer.TabIndex = 12;
@@ -268,6 +270,7 @@
             // 
             this.textAantalKilometersInvoer.Font = new System.Drawing.Font("Calibri", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textAantalKilometersInvoer.Location = new System.Drawing.Point(198, 278);
+            this.textAantalKilometersInvoer.MaxLength = 4;
             this.textAantalKilometersInvoer.Name = "textAantalKilometersInvoer";
             this.textAantalKilometersInvoer.Size = new System.Drawing.Size(89, 32);
             this.textAantalKilometersInvoer.TabIndex = 14;

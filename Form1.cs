@@ -41,15 +41,19 @@ namespace Taxikosten
         }
 
         decimal totaleKosten = 0m;
+
         decimal kostenTijdUur = 0m;
         decimal kostenTijdMinuten = 0m;
         decimal kostenKilometers = 0m;
+
         decimal startMinutenInput;
         decimal eindMinutenInput;
         int kilometersInput;
+
         decimal uurKostenDal = 0.25m;
         decimal weekendOpslag = 1.15m;
         decimal uurKostenHoog = 0.45m;
+
         decimal prijsPerGeredenKilometer = 1.0m;        
         
         private void btnBereken_Click(object sender, EventArgs e)
@@ -106,8 +110,6 @@ namespace Taxikosten
             /** bepaling combinatietarief: maandag start voor 07.00 's ochtends (opslag * 1.15) en eind voor 08.00 (bijv. van 05.00 - 07.15)*/
             bool combiTariefMaandagStartVoorZevenEindVoorAcht= (((comboBoxDagVanDeWeek.Text == "Maandag") && (startUur < 7) && (eindUur < 8)));
             
-
-
             /** bepaling combinatietarief: Vrijdag start 22.00 or later = opslag * 1.15 (bijv. van 22.15 - 23.30) */
             bool combiTariefVrijdagStartNaTienAvond = ((comboBoxDagVanDeWeek.Text == "Vrijdag") && (startUur >= 22));
                         
